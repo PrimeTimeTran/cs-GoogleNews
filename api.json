@@ -1,0 +1,34 @@
+{
+  "tweets": [
+    {
+      "body": "This is loi's post signed in!",
+      "likes": [
+        ""
+      ],
+      "retweets": [
+        {
+          "body": "Hi there =)",
+          "likes": [],
+          "createdAt": "2019-08-01T04:11:11.659Z",
+          "userName": "datloiboi@gmail.com"
+        },
+        {
+          "body": "Hi bud",
+          "likes": [],
+          "createdAt": "2019-08-01T04:09:52.042Z",
+          "userName": ""
+        }
+      ],
+      "createdAt": "2019-08-01T04:02:07.096Z",
+      "userName": "datloiboi@gmail.com"
+    },
+    {
+      "body": "Hello World!",
+      "likes": [],
+      "retweets": [],
+      "createdAt": "2019-08-01T04:01:48.960Z",
+      "userName": ""
+    }
+  ],
+  "currentUser": "datloiboi@gmail.com"
+}
