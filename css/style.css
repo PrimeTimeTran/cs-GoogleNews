@@ -78,7 +78,7 @@ h1 {
   width: 100%;
   padding: 2em;
   display: flex;
-  font-size: 1.6em;
+  font-size: 1`em;
   font-weight: bold;
   position: absolute;
   align-items: center;
