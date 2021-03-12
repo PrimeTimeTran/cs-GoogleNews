@@ -160,7 +160,7 @@ function getDayAgoDates() {
 }
 
 async function getCryptoPrices() {
-  const response = await fetch(cryptoURL);
+  const response = await fetch("https://cors-anywhere.herokuapp.com/" + cryptoURL);
   const jsonData = await response.json();
   console.log({ jsonData });
   renderLineGraph(jsonData.data);
