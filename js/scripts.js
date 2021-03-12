@@ -1,27 +1,56 @@
-const url = 'https://newsapi.org/v2/top-headlines?country=us&apiKey=156ba5f24ba940f7bf1b70d3c70a6b6b'
+const url =
+  "https://newsapi.org/v2/top-headlines?country=us&apiKey=6eec2f7fe6cd4c40a3fef8f33f5778fe";
 
 async function getNews() {
-  const response = await fetch(url)
-  const jsonData = await response.json()
-  const { articles } = jsonData
-  document.getElementById('title').innerHTML = `Google News (${articles.length})`
-  const articlesHTML = articles.map(renderSingleArticle)
-  document.getElementById('newsList').innerHTML = articlesHTML.join('')
+  const response = await fetch(url);
+  const jsonData = await response.json();
+  const { articles } = jsonData;
+  document.getElementById("title").innerHTML = `CoderNews (${articles.length})`;
+  const articlesHTML = articles.map(renderSingleArticle);
+  document.getElementById("newsList").innerHTML = articlesHTML.join("");
 }
 
 function renderSingleArticle(article) {
   return `
-      <li class="article">
-        <div class="img-container">
-          <img src="${article.urlToImage}" alt="Snow"></img>
-          <div class="bottom-left"><h1>${article.title}</h1></div>
-        </div>
-        <h3><i class="fa fa-edit"></i>${article.author}</h3>
-        <h6><a href="${article.url}">${article.source.name}</a></h6>
-        <p><i class="fa fa-calendar"></i>${moment(article.publishedAt).format('LLL')}</p>
-        <p><i class="fa fa-envelope"></i>${article.content}</p>
-      </li>
-    `
+    <li class="mb-3 align-self-center article">
+      <div class="img-container">
+        <div><h1 class="font-weight-bold">${article.title}</h1></div>
+        <img src="${article.urlToImage}" alt="Snow" />
+      </div>
+      <hr class="mt-4" />
+      <div class="d-flex align-items-center">
+        <i class="fa fa-edit fa-xs"></i><h4 class="mb-0">${article.author}</h4>
+      </div>
+      <hr />
+      <div class="d-flex align-items-center justify-content-between">
+        <h6 class="mb-0"><a href="${article.url}">${article.source.name}</a></h6>
+        <p class="mb-0"><i class="fa fa-calendar"></i>${moment(article.publishedAt).format("LLL")}</p>
+      </div>
+      <hr />
+      <p><i class="fa fa-envelope"></i>${article.content}</p>
+    </li>
+  `;
 }
 
-getNews()
+getNews();
+
+const addScript = (language) => {
+  var s = document.createElement("script");
+  s.setAttribute(
+    "src",
+    `https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/locale/${language}.js`
+  );
+  document.body.appendChild(s);
+};
+
+if (window.clientInformation.language == "ko-KR") {
+  addScript("ko");
+} else if (window.clientInformation.language == "vi") {
+  addScript("vi");
+}
+
+function stripHtml(html) {
+  var tmp = document.createElement("DIV");
+  tmp.innerHTML = html;
+  return tmp.textContent || tmp.innerText || "";
+}
