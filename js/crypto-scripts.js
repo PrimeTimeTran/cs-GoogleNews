@@ -2,61 +2,44 @@ const cryptoURL =
   "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?start=1&limit=3&convert=USD&CMC_PRO_API_KEY=45bc4e27-1b16-47c8-b84f-962950dae1ae";
 
 function renderLineGraph(coin) {
-  var ctx = document.getElementById("myChart");
-
+  const ctx = document.getElementById("myChart");
+  const price = coin.quote.USD.price;
   console.log({ coin: coin.quote.USD });
-
-  const [
-    ninetyAgoPrice,
-    sixtyAgoPrice,
-    thirtyAgoPrice,
-    sevenAgoPrice,
-    dayAgoPrice,
-    hourAgoPrice,
-    price,
-  ] = getHistoricPrices(coin);
-
-  var myChart = new Chart(ctx, {
+  const [ninetyAgoPrice] = getHistoricPrices(coin);
+  // const timeAgo = ["90d", ...getDayAgoDates(), "24h", "1h", "Current"];
+  const timeAgo = ["90d", "60d", "30d", "7d", "24h", "1h", "Current"];
+  const myChart = new Chart(ctx, {
     type: "line",
     data: {
       yAxisID: "129393",
-      labels: ["90d", "60d", "30d", "7d", "24h", "1h", "Current"],
+      labels: timeAgo,
       datasets: [
         {
-          label: "Bitcoin price",
-          data: [
-            ninetyAgoPrice,
-            sixtyAgoPrice,
-            thirtyAgoPrice,
-            sevenAgoPrice,
-            dayAgoPrice,
-            hourAgoPrice,
-            price,
-          ],
-          backgroundColor: [
-            "rgba(255, 99, 132, 0.2)",
-            "rgba(54, 162, 235, 0.2)",
-            "rgba(255, 206, 86, 0.2)",
-            "rgba(75, 192, 192, 0.2)",
-            "rgba(153, 102, 255, 0.2)",
-            "rgba(255, 159, 64, 0.2)",
-          ],
-          borderColor: [
-            "rgba(255, 99, 132, 1)",
-            "rgba(54, 162, 235, 1)",
-            "rgba(255, 206, 86, 1)",
-            "rgba(75, 192, 192, 1)",
-            "rgba(153, 102, 255, 1)",
-            "rgba(255, 159, 64, 1)",
-          ],
+          label: "Price",
           borderWidth: 1,
+          data: getHistoricPrices(coin),
+          borderColor: "rgba(255, 99, 132, 1)",
+          backgroundColor: "rgba(255, 99, 132, 0.2)",
         },
       ],
     },
     options: {
       tooltips: {
         enabled: true,
-        mode: 'nearest'
+        mode: "nearest",
+        callbacks: {
+          label: function (tooltipItem, data) {
+            var label = data.datasets[tooltipItem.datasetIndex].label || "";
+
+            if (label) {
+              label += ": ";
+            }
+            label += formatter.format(
+              Math.round(tooltipItem.yLabel * 100) / 100
+            );
+            return label;
+          },
+        },
       },
       scales: {
         yAxes: [
@@ -73,25 +56,30 @@ function renderLineGraph(coin) {
   });
 }
 
-function calculatePriceFromPercentageChange(price, percentageChange) {
+var formatter = new Intl.NumberFormat("en-US", {
+  style: "currency",
+  currency: "USD",
+});
+
+function calculatePriceFromPercentageChange(currentPrice, percentageChange) {
   let denominator;
+  let historicPrice;
   if (percentageChange >= 100) {
     percentageChange = percentageChange + 100;
     denominator = percentageChange * 0.01;
-    return price / denominator;
+    historicPrice = currentPrice / denominator;
   }
 
-  if (percentageChange > 0) {
+  if (percentageChange < 100 && percentageChange > 0) {
     denominator = 1 + percentageChange / 100;
-    return price / denominator;
+    historicPrice = currentPrice / denominator;
   }
 
   if (percentageChange < 0) {
-    const original = price / (1 - percentageChange);
-    console.log({ original });
-    console.log({ price });
-    return original;
+    const original = (currentPrice / (100 + percentageChange)) * 100;
+    historicPrice = original;
   }
+  return historicPrice;
 }
 
 function getHistoricPrices(coin) {
@@ -102,7 +90,7 @@ function getHistoricPrices(coin) {
     percent_change_7d,
     percent_change_24h,
     percent_change_1h,
-    price
+    price,
   } = coin.quote.USD;
 
   const ninetyAgoPrice = calculatePriceFromPercentageChange(
@@ -138,6 +126,23 @@ function getHistoricPrices(coin) {
     dayAgoPrice,
     hourAgoPrice,
     price,
+  ];
+}
+
+function getDayAgoDates() {
+  const ninetyAgo = new Date();
+  ninetyAgo.setDate(ninetyAgo.getDate() - 90);
+  const sixtyAgo = new Date();
+  sixtyAgo.setDate(sixtyAgo.getDate() - 60);
+  const thirtyAgo = new Date();
+  thirtyAgo.setDate(thirtyAgo.getDate() - 30);
+  const sevenAgo = new Date();
+  sevenAgo.setDate(sevenAgo.getDate() - 7);
+  return [
+    ninetyAgo.toLocaleString(),
+    sixtyAgo.toLocaleString(),
+    thirtyAgo.toLocaleString(),
+    sevenAgo.toLocaleString(),
   ];
 }
 
