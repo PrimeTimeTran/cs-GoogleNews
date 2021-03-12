@@ -1,17 +1,15 @@
 const cryptoURL =
-  "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?start=1&limit=3&convert=USD&CMC_PRO_API_KEY=45bc4e27-1b16-47c8-b84f-962950dae1ae";
+  "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?start=1&limit=5&convert=USD&CMC_PRO_API_KEY=45bc4e27-1b16-47c8-b84f-962950dae1ae";
 
 function renderLineGraph(coin) {
   const ctx = document.getElementById("myChart");
   const price = coin.quote.USD.price;
-  console.log({ coin: coin.quote.USD });
   const [ninetyAgoPrice] = getHistoricPrices(coin);
   // const timeAgo = ["90d", ...getDayAgoDates(), "24h", "1h", "Current"];
   const timeAgo = ["90d", "60d", "30d", "7d", "24h", "1h", "Current"];
   const myChart = new Chart(ctx, {
     type: "line",
     data: {
-      yAxisID: "129393",
       labels: timeAgo,
       datasets: [
         {
@@ -150,6 +148,7 @@ async function getCryptoPrices() {
   const response = await fetch(cryptoURL);
   const jsonData = await response.json();
   const bitcoin = jsonData.data[0];
+  console.log(jsonData.data);
   renderLineGraph(bitcoin);
 }
 
