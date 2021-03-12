@@ -32,6 +32,10 @@ img {
 }
 
 @media only screen and (max-width: 1000px) {
+  .title {
+    color: red;
+  }
+
   .article {
     width: 95%;
     padding: 2rem;
@@ -40,8 +44,23 @@ img {
 
   li {
     padding: 0px;
-    font-size: 2rem;
+    font-size: 2.25rem;
   }
+
+  p {
+    /* When word is a single string that breaks container */
+    /* https://css-tricks.com/snippets/css/prevent-long-urls-from-breaking-out-of-container/ */
+    hyphens: auto;
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    word-break: break-all;
+    -webkit-hyphens: auto;
+    word-wrap: break-word;
+    word-break: break-word;
+    -ms-word-break: break-all;
+    overflow-wrap: break-word;
+  }
+
   a {
     font-size: 2rem;
   }

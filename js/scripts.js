@@ -14,20 +14,23 @@ function renderSingleArticle(article) {
   return `
     <li class="mb-3 align-self-center article">
       <div class="img-container">
-        <div><h1 class="font-weight-bold">${article.title}</h1></div>
+        <h1 class="font-weight-bold">${article.title}</h1>
         <img src="${article.urlToImage}" alt="Snow" />
       </div>
       <hr class="mt-4" />
       <div class="d-flex align-items-center">
-        <i class="fa fa-edit fa-xs"></i><h4 class="mb-0">${article.author}</h4>
+        <i class="fa fa-edit"></i>
+        <p class="mb-0">${article.author}</p>
       </div>
       <hr />
       <div class="d-flex align-items-center justify-content-between">
-        <h6 class="mb-0"><a href="${article.url}">${article.source.name}</a></h6>
-        <p class="mb-0"><i class="fa fa-calendar"></i>${moment(article.publishedAt).format("LLL")}</p>
+        <p class="mb-0"><a href="${article.url}">${article.source.name}</a></p>
+        <p class="mb-0"><i class="fa fa-calendar"></i>${moment(
+          article.publishedAt
+        ).format("LLL")}</p>
       </div>
       <hr />
-      <p><i class="fa fa-envelope"></i>${article.content}</p>
+      <p class="mt-3"><i class="fa fa-envelope"></i>${article.content}</p>
     </li>
   `;
 }
