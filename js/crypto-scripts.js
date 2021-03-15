@@ -6,7 +6,6 @@ function renderLineGraph(coins) {
   const price = coins[0].quote.USD.price;
   const [ninetyAgoPrice] = getHistoricPrices(coins[0]);
 
-  // const timeAgo = ["90d", ...getDayAgoDates(), "24h", "1h", "Current"];
   const timeAgo = ["90d", "60d", "30d", "7d", "24h", "1h", "Current"];
   const myChart = new Chart(ctx, {
     type: "line",
@@ -160,9 +159,9 @@ function getDayAgoDates() {
 }
 
 async function getCryptoPrices() {
-  const response = await fetch("https://cors-anywhere.herokuapp.com/" + cryptoURL);
+  // const response = await fetch("https://cors-anywhere.herokuapp.com/" + cryptoURL);
+  const response = await fetch(cryptoURL);
   const jsonData = await response.json();
-  console.log({ jsonData });
   renderLineGraph(jsonData.data);
 }
 
