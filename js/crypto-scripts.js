@@ -4,9 +4,7 @@ const cryptoURL =
 function renderLineGraph(coin) {
   const ctx = document.getElementById("myChart");
   const price = coin.quote.USD.price;
-  console.log({ coin: coin.quote.USD });
   const [ninetyAgoPrice] = getHistoricPrices(coin);
-  // const timeAgo = ["90d", ...getDayAgoDates(), "24h", "1h", "Current"];
   const timeAgo = ["90d", "60d", "30d", "7d", "24h", "1h", "Current"];
   const myChart = new Chart(ctx, {
     type: "line",

@@ -1,7 +1,7 @@
 const url =
   "https://newsapi.org/v2/top-headlines?country=us&apiKey=6eec2f7fe6cd4c40a3fef8f33f5778fe";
 
-async function getNews() {
+async function getArticles() {
   const response = await fetch(url);
   const json = await response.json();
   const { articles } = json;
@@ -35,22 +35,9 @@ function renderSingleArticle(article) {
   `;
 }
 
-getNews();
+getArticles();
 
-const addScript = (language) => {
-  var s = document.createElement("script");
-  s.setAttribute(
-    "src",
-    `https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/locale/${language}.js`
-  );
-  document.body.appendChild(s);
-};
 
-if (window.clientInformation.language == "ko-KR") {
-  addScript("ko");
-} else if (window.clientInformation.language == "vi") {
-  addScript("vi");
-}
 
 function stripHtml(html) {
   var tmp = document.createElement("DIV");

@@ -1,5 +1,3 @@
-
-
 const languages = ["en", "jp", "fr", "rs", "cn", "gb"];
 
 function renderLanguageList() {
