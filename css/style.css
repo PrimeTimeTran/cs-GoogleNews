@@ -31,6 +31,12 @@ img {
   width: 100%;
 }
 
+#newsList {
+  margin: 0em;
+  overflow-y: auto;
+}
+
+
 
 @media only screen and (max-width: 1000px) {
   .title {

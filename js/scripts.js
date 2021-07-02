@@ -5,7 +5,6 @@ async function getNews() {
   const response = await fetch(url);
   const json = await response.json();
   const { articles } = json;
-  console.log({ json });
   document.getElementById("title").innerHTML = `CoderNews (${articles.length})`;
   const articlesHTML = articles.map(renderSingleArticle);
   document.getElementById("newsList").innerHTML = articlesHTML.join("");
