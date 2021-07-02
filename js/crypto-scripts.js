@@ -1,23 +1,36 @@
 const cryptoURL =
-  "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?start=1&limit=3&convert=USD&CMC_PRO_API_KEY=45bc4e27-1b16-47c8-b84f-962950dae1ae";
+  "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?start=1&limit=5&convert=USD&CMC_PRO_API_KEY=45bc4e27-1b16-47c8-b84f-962950dae1ae";
 
-function renderLineGraph(coin) {
+function renderLineGraph(coins) {
   const ctx = document.getElementById("myChart");
-  const price = coin.quote.USD.price;
-  const [ninetyAgoPrice] = getHistoricPrices(coin);
+  const [ninetyAgoPrice] = getHistoricPrices(coins[0]);
+
   const timeAgo = ["90d", "60d", "30d", "7d", "24h", "1h", "Current"];
   const myChart = new Chart(ctx, {
     type: "line",
     data: {
-      yAxisID: "129393",
       labels: timeAgo,
       datasets: [
         {
-          label: "Price",
+          label: "Bitcoin",
           borderWidth: 1,
-          data: getHistoricPrices(coin),
+          data: getHistoricPrices(coins[0]),
           borderColor: "rgba(255, 99, 132, 1)",
           backgroundColor: "rgba(255, 99, 132, 0.2)",
+        },
+        {
+          label: "Etherum",
+          borderWidth: 1,
+          data: getHistoricPrices(coins[1]),
+          borderColor: "rgba(54, 162, 235, 1)",
+          backgroundColor: "rgba(54, 162, 235, 0.2)",
+        },
+        {
+          label: "Price",
+          borderWidth: 1,
+          data: getHistoricPrices(coins[2]),
+          borderColor: "rgba(75, 192, 192, 1)",
+          backgroundColor: "rgba(75, 192, 192, 0.2)",
         },
       ],
     },
@@ -33,7 +46,7 @@ function renderLineGraph(coin) {
               label += ": ";
             }
             label += formatter.format(
-              Math.round(tooltipItem.yLabel * 100) / 100
+              Math.round(tooltipItem.yLabel * 100) / 100,
             );
             return label;
           },
@@ -44,8 +57,8 @@ function renderLineGraph(coin) {
           {
             ticks: {
               beginAtZero: false,
-              suggestedMax: price,
               suggestedMin: ninetyAgoPrice,
+              suggestedMax: 60,
             },
           },
         ],
@@ -93,27 +106,27 @@ function getHistoricPrices(coin) {
 
   const ninetyAgoPrice = calculatePriceFromPercentageChange(
     price,
-    percent_change_90d
+    percent_change_90d,
   );
   const sixtyAgoPrice = calculatePriceFromPercentageChange(
     price,
-    percent_change_60d
+    percent_change_60d,
   );
   const thirtyAgoPrice = calculatePriceFromPercentageChange(
     price,
-    percent_change_30d
+    percent_change_30d,
   );
   const sevenAgoPrice = calculatePriceFromPercentageChange(
     price,
-    percent_change_7d
+    percent_change_7d,
   );
   const dayAgoPrice = calculatePriceFromPercentageChange(
     price,
-    percent_change_24h
+    percent_change_24h,
   );
   const hourAgoPrice = calculatePriceFromPercentageChange(
     price,
-    percent_change_1h
+    percent_change_1h,
   );
 
   return [
@@ -145,11 +158,9 @@ function getDayAgoDates() {
 }
 
 async function getCryptoPrices() {
-  console.log("getCryptoPrices");
   const response = await fetch(cryptoURL);
   const jsonData = await response.json();
-  const bitcoin = jsonData.data[0];
-  renderLineGraph(bitcoin);
+  renderLineGraph(jsonData.data);
 }
 
 getCryptoPrices();
