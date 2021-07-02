@@ -1,14 +1,7 @@
-const url =
-  "https://newsapi.org/v2/top-headlines?country=us&apiKey=6eec2f7fe6cd4c40a3fef8f33f5778fe";
+const allowedQueryParams = ["q", "country", "page"];
 
-async function getArticles() {
-  const response = await fetch(url);
-  const json = await response.json();
-  const { articles } = json;
-  document.getElementById("title").innerHTML = `CoderNews (${articles.length})`;
-  const articlesHTML = articles.map(renderSingleArticle);
-  document.getElementById("newsList").innerHTML = articlesHTML.join("");
-}
+let url =
+  "https://newsapi.org/v2/top-headlines?apiKey=6eec2f7fe6cd4c40a3fef8f33f5778fe";
 
 function renderSingleArticle(article) {
   return `
@@ -26,7 +19,7 @@ function renderSingleArticle(article) {
       <div class="d-flex align-items-center justify-content-between">
         <p class="mb-0"><a href="${article.url}">${article.source.name}</a></p>
         <p class="mb-0"><i class="fa fa-calendar"></i>${moment(
-          article.publishedAt
+          article.publishedAt,
         ).format("LLL")}</p>
       </div>
       <hr />
@@ -35,12 +28,28 @@ function renderSingleArticle(article) {
   `;
 }
 
+function formUrlString() {
+  const queryParams = window.location.search
+    .replace("?", "")
+    .split("&")
+    .map((k) => k.split("="));
+
+  for (let queryParam of queryParams) {
+    if (!allowedQueryParams.includes(queryParam)) {
+      url += `&${queryParam[0]}=${queryParam[1]}`;
+    }
+  }
+  return url;
+}
+
+async function getArticles() {
+  const response = await fetch(formUrlString());
+  const json = await response.json();
+  const { articles } = json;
+  document.getElementById("title").innerHTML = `CoderNews (${articles.length})`;
+  const articlesHTML = articles.map(renderSingleArticle);
+  document.getElementById("newsList").innerHTML = articlesHTML.join("");
+}
+
 getArticles();
 
-
-
-function stripHtml(html) {
-  var tmp = document.createElement("DIV");
-  tmp.innerHTML = html;
-  return tmp.textContent || tmp.innerText || "";
-}

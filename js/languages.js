@@ -1,4 +1,24 @@
-const languages = ["en", "jp", "fr", "rs", "cn", "gb"];
+const languages = [
+  "de",
+  "es",
+  "he",
+  "it",
+  "nl",
+  "no",
+  "pt",
+  "ru",
+  "se",
+  "ud",
+  "zh",
+  "ar",
+  "en",
+  "jp",
+  "fr",
+  "rs",
+  "cn",
+  "gb",
+  "kr",
+];
 
 function renderLanguageList() {
   const anchorTags = []
