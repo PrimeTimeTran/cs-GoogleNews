@@ -3,7 +3,7 @@ const allowedQueryParams = ["q", "country", "page"];
 let url =
   "https://newsapi.org/v2/top-headlines?apiKey=6eec2f7fe6cd4c40a3fef8f33f5778fe";
 
-function renderSingleArticle(article) {
+function renderSingleNewsArticle(article) {
   return `
     <li class="mb-3 align-self-center article">
       <div class="img-container">
@@ -42,14 +42,21 @@ function formUrlString() {
   return url;
 }
 
-async function getArticles() {
-  const response = await fetch(formUrlString());
-  const json = await response.json();
-  const { articles } = json;
-  document.getElementById("title").innerHTML = `CoderNews (${articles.length})`;
-  const articlesHTML = articles.map(renderSingleArticle);
+function updateTitle(num) {
+  document.getElementById("title").innerHTML = `CoderNews (${num})`;
+}
+
+function renderNewsArticles(articles) {
+  const articlesHTML = articles.map(renderSingleNewsArticle);
   document.getElementById("newsList").innerHTML = articlesHTML.join("");
 }
 
-getArticles();
+async function fetchNewsArticles() {
+  const response = await fetch(formUrlString());
+  const json = await response.json();
+  const { articles } = json;
+  updateTitle(articles.length);
+  renderNewsArticles(articles);
+}
 
+fetchNewsArticles();

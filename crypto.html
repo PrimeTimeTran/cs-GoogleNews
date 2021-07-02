@@ -22,38 +22,53 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-      <a class="navbar-brand" href="/index.html">CoderNews</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-    
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="/index.html">Home <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/crypto.html">Crypto</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/foo.html">Foo</a>
-          </li>
-        </ul>
-        <form class="d-flex">
-          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
-      </div>
-    </nav>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+    <a class="navbar-brand" href="/index.html">CoderNews</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="/index.html">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/crypto.html">Crypto</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/foo.html">Foo</a>
+        </li>
+      </ul>
+      <form class="d-flex">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      </form>
+    </div>
+  </nav>
+
   <div class="d-flex flex-column justify-content-center align-items-center">
     <div class="row">
-      <div class="col">
+      <div class="col pt-5">
         <canvas class="mt-5" id="myChart" width="800" height="400"></canvas>
       </div>
     </div>
   </div>
+
+  <ul>
+    <li>1. Apple 5 mins</li>
+    <li>2. Apple 30 mins</li>
+    <li>3. Apple 1 hour</li>
+    <li>4. Apple Bitcoin</li>
+    <li>5. Apple Overview Info</li>
+  </ul>
+
+  <footer class="footer fixed-bottom">
+    <div class="d-flex justify-content-end px-3 py-1">
+      <span id="languages" class="text-muted">Place sticky footer content here.</span>
+    </div>
+  </footer>
 
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
     integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
@@ -68,7 +83,16 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
 
-  <script src="js/crypto-scripts.js"></script>
+  <script>
+    !function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0]; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = 'https://weatherwidget.io/js/widget.min.js'; fjs.parentNode.insertBefore(js, fjs); } }(document, 'script', 'weatherwidget-io-js');
+  </script>
+
+  <script src="js/i18n.js"></script>
+
+  <script src="js/news.js"></script>
+  <script src="js/categories.js"></script>
+  <script src="js/languages.js"></script>
+  <script src="js/crypto.js"></script>
 </body>
 
 </html>
