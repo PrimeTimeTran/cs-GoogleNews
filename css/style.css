@@ -36,6 +36,19 @@ img {
   overflow-y: auto;
 }
 
+#categoriesList {
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin:0 -15px;
+}
+
+.category-item {
+  margin: 5px;
+  font-weight: 500;
+  font-color: #
+}
+
 
 
 @media only screen and (max-width: 1000px) {

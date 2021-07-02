@@ -4,10 +4,10 @@ function renderLanguageList() {
   const anchorTags = []
   for (const language of languages) {
     anchorTags.push(
-      `<a class="ml-1" href="http://127.0.0.1:5502/index.html?language=${language}">${language}</a>,`,
+      `<a class="ml-1" href="http://127.0.0.1:5502/index.html?language=${language}">${language}</a>`,
     );
   }
-  document.getElementById("languages").innerHTML = anchorTags.join("");
+  document.getElementById("languages").innerHTML = anchorTags.join(", ");
   
 }
 

@@ -145,6 +145,7 @@ function getDayAgoDates() {
 }
 
 async function getCryptoPrices() {
+  console.log("getCryptoPrices");
   const response = await fetch(cryptoURL);
   const jsonData = await response.json();
   const bitcoin = jsonData.data[0];
