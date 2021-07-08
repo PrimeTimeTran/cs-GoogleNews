@@ -1,4 +1,31 @@
-# Crypto News
+# Codernews
+
+
+## Topics
+
+3.3
+
+- Functions
+- REST
+- Postman
+- Query Parameters
+- Fetch then
+- Async Await
+- Try Catch Finally
+- Render
+- LocalStorage.getItem()
+- LocalStorage.setItem()
+- JSON.stringfy()
+- JSON.parse()
+- window.localStorage
+- window.navigator.languages
+
+1. Fetch Data.
+2. Consume data in our app.
+3. Produce HTML using data.
+4. Inject HTML into our U.I.
+
+
 
 ## Requirements
 
@@ -11,17 +38,27 @@
 - [] User sees weather info on the homepage.
 - [] User can "save" favorite news articles".
 
+
+## Food for thought
+
+By the end of the project you should understand why an object such as this might be useful.
+
 ```js
 const appState = {
   systemLocale: 'en',
   browserLocale: 'en',
+  localArticles: [],
+  localFavorites: [],
+  fetchedArticles: [],
   currentUser: {
-    userFavorties: [],
+    name: 'Spam',
+    favorites: [],
   },
-  users: [],
-  newsArticles: [],
-  cryptoprices: [],
-  weather: {
-  }
+  users: [
+    {
+      name: 'Ham',
+      favoriteArticleIds: [],
+    }
+  ],
 };
 ```
