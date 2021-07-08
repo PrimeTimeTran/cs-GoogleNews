@@ -1,9 +1,10 @@
 const allowedQueryParams = ["q", "country", "page"];
 
-let url =
-  "https://newsapi.org/v2/top-headlines?apiKey=6eec2f7fe6cd4c40a3fef8f33f5778fe";
 
-function renderSingleNewsArticle(article) {
+let url =
+  "https://newsapi.org/v2/top-headlines?apiKey=a789c89d7c354c64afc320506517b71f";
+
+function renderSingleArticle(article) {
   return `
     <li class="mb-3 align-self-center article">
       <div class="img-container">
@@ -28,35 +29,48 @@ function renderSingleNewsArticle(article) {
   `;
 }
 
-function formUrlString() {
+function produceUrl() {
   const queryParams = window.location.search
     .replace("?", "")
     .split("&")
     .map((k) => k.split("="));
 
+  if (!queryParams.includes("language")) {
+    queryParams.push(["language", "en"]);
+  }
+
   for (let queryParam of queryParams) {
-    if (!allowedQueryParams.includes(queryParam)) {
+    if (!allowedQueryParams.some((p) => p.includes(queryParam))) {
       url += `&${queryParam[0]}=${queryParam[1]}`;
     }
   }
   return url;
 }
 
-function updateTitle(num) {
+function renderTitle(num) {
   document.getElementById("title").innerHTML = `CoderNews (${num})`;
 }
 
-function renderNewsArticles(articles) {
-  const articlesHTML = articles.map(renderSingleNewsArticle);
+function renderArticles(articles) {
+  const articlesHTML = articles.map(renderSingleArticle);
+
   document.getElementById("newsList").innerHTML = articlesHTML.join("");
-}
+} 
 
 async function fetchNewsArticles() {
-  const response = await fetch(formUrlString());
-  const json = await response.json();
-  const { articles } = json;
-  updateTitle(articles.length);
-  renderNewsArticles(articles);
+  let articles;
+  try {
+    const response = await fetch(produceUrl());
+    const json = await response.json();
+    articles = json.articles;
+    localStorage.setItem("mostRecentNewsArticles", JSON.stringify(articles));
+  } catch (error) {
+    articles = JSON.parse(localStorage.getItem("mostRecentNewsArticles"));
+  } finally {
+    console.log({ articles });
+    renderTitle(articles.length);
+    renderArticles(articles);
+  }
 }
 
 fetchNewsArticles();
