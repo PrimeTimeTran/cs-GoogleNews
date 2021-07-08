@@ -1,6 +1,5 @@
 const allowedQueryParams = ["q", "country", "page"];
 
-
 let url =
   "https://newsapi.org/v2/top-headlines?apiKey=a789c89d7c354c64afc320506517b71f";
 
